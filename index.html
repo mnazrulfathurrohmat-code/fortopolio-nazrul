@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portofolio Pribadi</title>
+    <style>
+        /* ===== RESET & GLOBAL ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --hitam: #0a0a0f;
+            --hitam-soft: #12121a;
+            --abu-gelap: #1e1e2a;
+            --abu: #8a8a9a;
+            --abu-terang: #c5c5d0;
+            --biru: #3b82f6;
+            --biru-terang: #60a5fa;
+            --biru-gelap: #1d4ed8;
+            --putih: #f0f0f5;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--hitam);
+            color: var(--abu-terang);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* ===== DEKORASI BACKGROUND BLOB ===== */
+        .blob {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.25;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .blob-1 {
+            width: 400px;
+            height: 400px;
+            background: var(--biru);
+            top: -100px;
+            right: -100px;
+            animation: float 12s ease-in-out infinite;
+        }
+
+        .blob-2 {
+            width: 350px;
+            height: 350px;
+            background: var(--abu);
+            bottom: 10%;
+            left: -120px;
+            animation: float 15s ease-in-out infinite reverse;
+        }
+
+        .blob-3 {
+            width: 300px;
+            height: 300px;
+            background: var(--biru-gelap);
+            top: 40%;
+            right: -80px;
+            animation: float 18s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(30px, -30px) scale(1.1); }
+        }
+
+        /* ===== CONTAINER ===== */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ===== NAVBAR ===== */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 18px 0;
+            background: rgba(10, 10, 15, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(59, 130, 246, 0.15);
+            z-index: 100;
+        }
+
+        .nav-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--putih);
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: var(--biru);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--abu);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--biru);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--biru-terang);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 120px 0 60px;
+        }
+
+        .hero-inner {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: 3rem;
+            color: var(--putih);
+            line-height: 1.2;
+            margin-bottom: 12px;
+        }
+
+        .hero-text h1 span {
+            color: var(--biru);
+            display: inline-block;
+        }
+
+        .hero-text .subtitle {
+            font-size: 1.3rem;
+            color: var(--abu);
+            margin-bottom: 24px;
+            font-weight: 400;
+        }
+
+        .hero-text .description {
+            font-size: 1rem;
+            color: var(--abu);
+            max-width: 520px;
+            margin-bottom: 36px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            background: var(--biru);
+            color: var(--putih);
+            box-shadow: 0 8px 24px rgba(59, 130, 246, 0.35);
+        }
+
+        .btn-primary:hover {
+            background: var(--biru-terang);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 32px rgba(59, 130, 246, 0.5);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--abu-terang);
+            border: 2px solid var(--abu-gelap);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--biru);
+            color: var(--biru-terang);
+            transform: translateY(-3px);
+        }
+
+        /* ===== AVATAR & FOTO ===== */
+        .hero-avatar {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .avatar-glow {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: var(--biru);
+            border-radius: 50%;
+            filter: blur(50px);
+            opacity: 0.4;
+            z-index: 1;
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.1); opacity: 0.5; }
+        }
+
+        .avatar-frame {
+            position: relative;
+            width: 280px;
+            height: 280px;
+            border-radius: 42% 58% 63% 37% / 41% 44% 56% 59%;
+            overflow: hidden;
+            z-index: 2;
+            border: 4px solid var(--hitam-soft);
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.4);
+            animation: morph 8s ease-in-out infinite;
+            background-color: var(--abu-gelap);
+        }
+
+        .avatar-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 15%;
+            filter: grayscale(20%) contrast(110%);
+            transition: filter 0.5s ease;
+        }
+
+        .avatar-frame:hover img {
+            filter: grayscale(0%) contrast(100%);
+        }
+
+        @keyframes morph {
+            0%, 100% { border-radius: 42% 58% 63% 37% / 41% 44% 56% 59%; }
+            50% { border-radius: 58% 42% 37% 63% / 56% 59% 41% 44%; }
+        }
+
+        /* ===== SECTION UMUM ===== */
+        section {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            color: var(--putih);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .section-title .line {
+            width: 50px;
+            height: 3px;
+            background: var(--biru);
+            border-radius: 3px;
+        }
+
+        .section-subtitle {
+            color: var(--abu);
+            margin-bottom: 48px;
+            font-size: 1rem;
+        }
+
+        /* ===== TENTANG ===== */
+        .about-content {
+            max-width: 800px;
+        }
+
+        .about-text p {
+            color: var(--abu-terang);
+            margin-bottom: 18px;
+        }
+
+        .about-text strong {
+            color: var(--biru-terang);
+        }
+
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 24px;
+        }
+
+        .skill-tag {
+            padding: 8px 18px;
+            background: var(--hitam-soft);
+            border: 1px solid var(--abu-gelap);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            color: var(--abu-terang);
+            transition: all 0.3s ease;
+        }
+
+        .skill-tag:hover {
+            border-color: var(--biru);
+            color: var(--biru-terang);
+            transform: translateY(-2px);
+        }
+
+        /* ===== PROYEK ===== */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 28px;
+        }
+
+        .project-card {
+            background: var(--hitam-soft);
+            border: 1px solid var(--abu-gelap);
+            border-radius: 24px;
+            padding: 32px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--biru), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(59, 130, 246, 0.4);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+        }
+
+        .project-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 16px;
+            background: rgba(59, 130, 246, 0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .project-card h3 {
+            color: var(--putih);
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        /* Styling untuk link judul */
+        .project-card h3 a {
+            color: var(--putih);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .project-card h3 a:hover {
+            color: var(--biru-terang);
+        }
+
+        .project-card p {
+            color: var(--abu);
+            font-size: 0.92rem;
+            margin-bottom: 20px;
+            flex-grow: 1; /* Agar konten sejajar */
+        }
+
+        .project-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 20px; /* Jarak ke tombol */
+        }
+
+        .project-tags span {
+            font-size: 0.75rem;
+            padding: 5px 12px;
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--biru-terang);
+            border-radius: 50px;
+        }
+
+        /* Tombol Link di dalam card */
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 20px;
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--biru-terang);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            margin-top: auto;
+            width: fit-content;
+        }
+
+        .project-link:hover {
+            background: var(--biru);
+            color: var(--putih);
+            border-color: var(--biru);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+        }
+
+        /* ===== KONTAK ===== */
+        .contact-box {
+            background: linear-gradient(135deg, var(--hitam-soft), var(--abu-gelap));
+            border: 1px solid var(--abu-gelap);
+            border-radius: 32px;
+            padding: 64px 48px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-box::before {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: var(--biru);
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.15;
+            top: -100px;
+            right: -50px;
+        }
+
+        .contact-box h2 {
+            font-size: 2rem;
+            color: var(--putih);
+            margin-bottom: 14px;
+            position: relative;
+        }
+
+        .contact-box p {
+            color: var(--abu);
+            max-width: 500px;
+            margin: 0 auto 32px;
+            position: relative;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            position: relative;
+        }
+
+        .contact-links .btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            padding: 32px 0;
+            border-top: 1px solid var(--abu-gelap);
+            text-align: center;
+        }
+
+        footer p {
+            color: var(--abu);
+            font-size: 0.85rem;
+        }
+
+        footer span {
+            color: var(--biru);
+        }
+
+        /* ===== ANIMASI REVEAL ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 900px) {
+            .hero-inner {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 40px;
+            }
+
+            .hero-text h1 {
+                font-size: 2.4rem;
+            }
+
+            .hero-text .description {
+                margin: 0 auto 36px;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .hero-avatar {
+                order: -1;
+            }
+
+            .avatar-glow {
+                width: 240px;
+                height: 240px;
+            }
+
+            .avatar-frame {
+                width: 220px;
+                height: 220px;
+            }
+
+            .nav-links {
+                gap: 18px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-text h1 {
+                font-size: 2rem;
+            }
+
+            .hero-text .subtitle {
+                font-size: 1.1rem;
+            }
+
+            .section-title {
+                font-size: 1.6rem;
+            }
+
+            .contact-box {
+                padding: 48px 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Dekorasi Background -->
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+
+    <!-- Navbar -->
+    <nav>
+        <div class="container nav-inner">
+            <div class="logo">Porto<span>folio</span></div>
+            <ul class="nav-links">
+                <li><a href="#tentang">Tentang</a></li>
+                <li><a href="#proyek">Proyek</a></li>
+                <li><a href="#kontak">Kontak</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-inner">
+            <div class="hero-text">
+                <h1>Halo, saya <span>Andi Pratama</span></h1>
+                <p class="subtitle">Front-End Developer & UI Designer</p>
+                <p class="description">
+                    Saya membangun pengalaman digital yang bersih, fungsional, dan 
+                    menyenangkan. Berfokus pada detail dan performa untuk menciptakan 
+                    produk yang benar-benar bermanfaat.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#proyek" class="btn btn-primary">Lihat Proyek</a>
+                    <a href="#kontak" class="btn btn-outline">Hubungi Saya</a>
+                </div>
+            </div>
+            <div class="hero-avatar">
+                <div class="avatar-glow"></div>
+                <div class="avatar-frame">
+                    <!-- Foto profil menggunakan file foto-profil.jpg -->
+                    <img src="foto-profil.jpg" alt="Foto Profil Andi Pratama">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tentang Section -->
+    <section id="tentang">
+        <div class="container">
+            <div class="reveal">
+                <h2 class="section-title"><span class="line"></span>Tentang Saya</h2>
+                <p class="section-subtitle">Kenali saya lebih dekat</p>
+            </div>
+            <div class="about-content reveal">
+                <div class="about-text">
+                    <p>
+                        Saya adalah seorang <strong>Front-End Developer</strong> dengan 
+                        pengalaman lebih dari 4 tahun dalam membangun antarmuka web modern. 
+                        Saya percaya bahwa desain yang baik adalah desain yang tidak 
+                        terlihat — di mana pengguna dapat menyelesaikan tujuannya tanpa 
+                        hambatan.
+                    </p>
+                    <p>
+                        Saya senang bekerja dengan <strong>JavaScript, React, dan CSS</strong> 
+                        untuk menciptakan pengalaman yang interaktif dan aksesibel. Di luar 
+                        coding, saya menikmati fotografi dan eksplorasi desain tipografi.
+                    </p>
+                    <div class="skills-list">
+                        <span class="skill-tag">HTML</span>
+                        <span class="skill-tag">CSS</span>
+                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">React</span>
+                        <span class="skill-tag">Figma</span>
+                        <span class="skill-tag">Tailwind</span>
+                        <span class="skill-tag">Git</span>
+                        <span class="skill-tag">UI Design</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Proyek Section -->
+    <section id="proyek">
+        <div class="container">
+            <div class="reveal">
+                <h2 class="section-title"><span class="line"></span>Proyek Pilihan</h2>
+                <p class="section-subtitle">Beberapa karya terbaru yang saya banggakan</p>
+            </div>
+            <div class="projects-grid">
+                <!-- Proyek 1: Website Kasir -->
+                <div class="project-card reveal">
+                    <div class="project-icon">🧾</div>
+                    <h3><a href="https://mnzrulftrrhmtzazusipalingsokas-cpu.github.io/kasir_nazrul/" target="_blank" rel="noopener">Website Kasir (POS)</a></h3>
+                    <p>
+                        Aplikasi Point of Sale (POS) berbasis web untuk mempermudah 
+                        transaksi toko, manajemen stok barang, cetak struk, dan 
+                        laporan penjualan harian secara real-time.
+                    </p>
+                    <div class="project-tags">
+                        <span>React</span>
+                        <span>Node.js</span>
+                        <span>Tailwind</span>
+                    </div>
+                    <a href="https://mnzrulftrrhmtzazusipalingsokas-cpu.github.io/kasir_nazrul/" target="_blank" rel="noopener" class="project-link">
+                        🚀 Kunjungi Website
+                    </a>
+                </div>
+
+                <!-- Proyek 2: Aplikasi Catatan -->
+                <div class="project-card reveal">
+                    <div class="project-icon">📱</div>
+                    <h3><a href="https://www.figma.com/design/FPRQHaa5T52vEPwBOXCgLu/Untitled?node-id=0-1&t=YMmdVldVbaSHjvOx-1" target="_blank" rel="noopener">Mockup Aplikasi Catatan</a></h3>
+                    <p>
+                        Desain antarmuka aplikasi pencatatan minimalis dengan 
+                        sinkronisasi cloud, pencarian cepat, dan mode gelap otomatis. 
+                        Lihat prototype interaktifnya di Figma.
+                    </p>
+                    <div class="project-tags">
+                        <span>Figma</span>
+                        <span>UI/UX</span>
+                        <span>Prototype</span>
+                    </div>
+                    <a href="https://www.figma.com/design/FPRQHaa5T52vEPwBOXCgLu/Untitled?node-id=0-1&t=YMmdVldVbaSHjvOx-1" target="_blank" rel="noopener" class="project-link">
+                        🎨 Lihat Mockup Figma
+                    </a>
+                </div>
+
+                <!-- Proyek 3: Prototype Portofolio Kreatif -->
+                <div class="project-card reveal">
+                    <div class="project-icon">✨</div>
+                    <h3><a href="https://www.figma.com/proto/FPRQHaa5T52vEPwBOXCgLu/Untitled?node-id=8-2739&p=f&t=Rt9E7ljMxd7TrB0l-1&scaling=scale-down-width&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=8%3A1708&show-proto-sidebar=1" target="_blank" rel="noopener">Prototype Portofolio Kreatif</a></h3>
+                    <p>
+                        Prototype interaktif untuk website portofolio desainer grafis. 
+                        Dilengkapi dengan galeri interaktif dan transisi animasi halus 
+                        yang dapat dicoba langsung.
+                    </p>
+                    <div class="project-tags">
+                        <span>Figma Prototype</span>
+                        <span>UI Design</span>
+                        <span>Animation</span>
+                    </div>
+                    <a href="https://www.figma.com/proto/FPRQHaa5T52vEPwBOXCgLu/Untitled?node-id=8-2739&p=f&t=Rt9E7ljMxd7TrB0l-1&scaling=scale-down-width&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=8%3A1708&show-proto-sidebar=1" target="_blank" rel="noopener" class="project-link">
+                        🚀 Coba Prototype
+                    </a>
+                </div>
+
+                <!-- Proyek 4: Tugas Case Study (BARU) -->
+                <div class="project-card reveal">
+                    <div class="project-icon">📚</div>
+                    <h3><a href="https://stellular-sundae-3ab0ec.netlify.app" target="_blank" rel="noopener">Tugas Case Study</a></h3>
+                    <p>
+                        Proyek case study yang menampilkan implementasi desain dan 
+                        pengembangan antarmuka web modern. Dibangun dengan fokus pada 
+                        pengalaman pengguna dan performa yang optimal.
+                    </p>
+                    <div class="project-tags">
+                        <span>Web Design</span>
+                        <span>Front-End</span>
+                        <span>Netlify</span>
+                    </div>
+                    <a href="https://stellular-sundae-3ab0ec.netlify.app" target="_blank" rel="noopener" class="project-link">
+                        🚀 Kunjungi Website
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Kontak Section -->
+    <section id="kontak">
+        <div class="container">
+            <div class="contact-box reveal">
+                <h2>Mari Bekerja Sama</h2>
+                <p>
+                    Punya ide proyek atau ingin berkolaborasi? Saya selalu terbuka 
+                    untuk diskusi dan peluang baru. Kirim pesan dan mari wujudkan 
+                    sesuatu yang keren bersama.
+                </p>
+                <div class="contact-links">
+                    <a href="mailto:mnazrulfathurrohmat@gmail.com" class="btn btn-primary">✉ mnazrulfathurrohmat@gmail.com</a>
+                    <a href="https://www.linkedin.com/in/m-nazrul-fathurrohmat-238972432/?lipi=urn%3Ali%3Apage%3Ap_mwlite_feed%3BOe5M%2BbgrQsu%2F289Vful4Zg%3D%3D" target="_blank" rel="noopener" class="btn btn-outline">💼 LinkedIn</a>
+                    <a href="#" class="btn btn-outline">🐙 GitHub</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>© 2025 <span>Andi Pratama</span>. Dibuat dengan ❤ dan secangkir kopi.</p>
+        </div>
+    </footer>
+
+    <!-- Script Animasi Reveal -->
+    <script>
+        const reveals = document.querySelectorAll('.reveal');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.15,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        reveals.forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
